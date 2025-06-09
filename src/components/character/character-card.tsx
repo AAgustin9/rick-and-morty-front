@@ -42,7 +42,7 @@ export function CharacterCard({ character, onClick }: CharacterCardProps) {
           </div>
         )}
         <div className="absolute top-2 right-2">
-          <Badge variant={getStatusBadgeVariant(character.status)} className="text-xs">
+          <Badge variant={getStatusBadgeVariant(character.status)} className="text-xs hover:bg-current pointer-events-none">
             <div className={`w-2 h-2 rounded-full ${getStatusColor(character.status)} mr-1`} />
             {character.status}
           </Badge>

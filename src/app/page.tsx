@@ -1,24 +1,38 @@
 "use client"
 
-import { useState } from "react"
-import { SidebarProvider, useSidebar } from "@/components/ui/sidebar"
+import { useState, useEffect } from "react"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/layout/app-sidebar"
 import { CharacterGrid } from "@/components/character/character-grid"
+import { CharacterList } from "@/components/character/character-list"
 import { CharacterModal } from "@/components/character/character-modal"
 import { Header } from "@/components/layout/header"
+import { ViewSwitcher, type ViewMode } from "@/components/character/view-switcher"
 import { SidebarInset } from "@/components/ui/sidebar"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Button } from "@/components/ui/button"
-import { PanelLeft } from "lucide-react"
 import { useCharacters } from "@/hooks/use-characters"
 import { useFilters } from "@/hooks/use-filters"
 import type { Character } from "@/types/character"
 
 export default function RickMortyExplorer() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
+  const [viewMode, setViewMode] = useState<ViewMode>("grid")
   const { filters, handleFilterChange, clearFilters } = useFilters()
   const { characters, loading, currentPage, totalPages, loadMore } = useCharacters(filters)
+
+  // Persist view mode preference in localStorage
+  useEffect(() => {
+    const savedViewMode = localStorage.getItem("rickMortyViewMode") as ViewMode
+    if (savedViewMode && (savedViewMode === "grid" || savedViewMode === "list")) {
+      setViewMode(savedViewMode)
+    }
+  }, [])
+
+  const handleViewChange = (newViewMode: ViewMode) => {
+    setViewMode(newViewMode)
+    localStorage.setItem("rickMortyViewMode", newViewMode)
+  }
 
   return (
     <div 
@@ -35,29 +49,45 @@ export default function RickMortyExplorer() {
           <AppSidebar filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
           <SidebarInset>
           <div className="flex flex-col min-h-screen">
-            <div className="fixed top-0 left-0 right-0 z-50 flex items-center gap-4 p-4 border-b border-slate-700 bg-slate-800">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400" />
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="bg-slate-800 text-white border-slate-600">
-                    <p>Toggle Sidebar (Ctrl/⌘ + B)</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <Header />
+            <div className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-2 sm:gap-4 p-3 sm:p-4 border-b border-slate-700 bg-slate-800">
+              <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400 flex-shrink-0" />
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="bg-slate-800 text-white border-slate-600">
+                      <p>Toggle Sidebar (Ctrl/⌘ + B)</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <Header />
+              </div>
+              <div className="flex-shrink-0">
+                <ViewSwitcher view={viewMode} onViewChange={handleViewChange} />
+              </div>
             </div>
 
             <main className="flex-1 p-4 md:p-6 bg-transparent">
-              <CharacterGrid
-                characters={characters}
-                loading={loading}
-                hasMore={currentPage < totalPages}
-                onLoadMore={loadMore}
-                onCharacterClick={setSelectedCharacter}
-                filters={filters}
-              />
+              {viewMode === "grid" ? (
+                <CharacterGrid
+                  characters={characters}
+                  loading={loading}
+                  hasMore={currentPage < totalPages}
+                  onLoadMore={loadMore}
+                  onCharacterClick={setSelectedCharacter}
+                  filters={filters}
+                />
+              ) : (
+                <CharacterList
+                  characters={characters}
+                  loading={loading}
+                  hasMore={currentPage < totalPages}
+                  onLoadMore={loadMore}
+                  onCharacterClick={setSelectedCharacter}
+                  filters={filters}
+                />
+              )}
             </main>
           </div>
         </SidebarInset>

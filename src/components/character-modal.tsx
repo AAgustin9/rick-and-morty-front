@@ -65,7 +65,7 @@ export function CharacterModal({ character, isOpen, onClose }: CharacterModalPro
                 crossOrigin="anonymous"
               />
               <div className="absolute top-3 right-3">
-                <Badge variant={getStatusBadgeVariant(character.status)} className="text-sm">
+                <Badge variant={getStatusBadgeVariant(character.status)} className="text-sm hover:bg-current pointer-events-none">
                   <div className={`w-2 h-2 rounded-full ${getStatusColor(character.status)} mr-2`} />
                   {character.status}
                 </Badge>

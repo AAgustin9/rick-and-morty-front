@@ -1,0 +1,20 @@
+.character-list-item {
+  transform: translateX(0);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.character-list-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.character-list-item .rounded-l-lg {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .character-list-item .rounded-l-lg {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+} 
