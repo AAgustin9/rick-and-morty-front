@@ -7,6 +7,7 @@ import { MapPin, Calendar, Tv } from "lucide-react"
 import Image from "next/image"
 import { getStatusColor, getStatusBadgeVariant, formatDate } from "@/utils/character"
 import type { Character } from "@/types/character"
+import "./character-modal.css"
 
 interface CharacterModalProps {
   character: Character | null
@@ -113,23 +114,6 @@ export function CharacterModal({ character, isOpen, onClose }: CharacterModalPro
             </div>
           </div>
         </div>
-
-        <style jsx>{`
-          .character-modal {
-            animation: modalSlideIn 0.3s ease-out;
-          }
-          
-          @keyframes modalSlideIn {
-            from {
-              opacity: 0;
-              transform: scale(0.95) translateY(-10px);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1) translateY(0);
-            }
-          }
-        `}</style>
       </DialogContent>
     </Dialog>
   )

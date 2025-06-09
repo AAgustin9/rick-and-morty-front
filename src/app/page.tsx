@@ -22,7 +22,7 @@ export default function RickMortyExplorer() {
 
   return (
     <div className="min-h-screen bg-slate-900">
-      <SidebarProvider defaultOpen={true}>
+      <SidebarProvider defaultOpen={false}>
         <AppSidebar filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
         <SidebarInset>
           <div className="flex flex-col min-h-screen">

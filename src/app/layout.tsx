@@ -14,6 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className='dark'>
+      <head>
+        {/* DNS prefetch for faster DNS resolution */}
+        <link rel="dns-prefetch" href="//rickandmortyapi.com" />
+        
+        {/* Preconnect for faster connection establishment */}
+        <link rel="preconnect" href="https://rickandmortyapi.com" />
+        <link rel="preconnect" href="https://rickandmortyapi.com" crossOrigin="anonymous" />
+      </head>
       <body>{children}</body>
     </html>
   )

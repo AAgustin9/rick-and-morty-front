@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
 import { getStatusColor, getStatusBadgeVariant } from "@/utils/character"
 import type { Character } from "@/types/character"
+import "./character-card.css"
 
 interface CharacterCardProps {
   character: Character
@@ -19,7 +20,7 @@ export function CharacterCard({ character, onClick }: CharacterCardProps) {
       className="character-card bg-slate-800 border-slate-700 hover:border-emerald-400 transition-all duration-300 cursor-pointer group"
       onClick={onClick}
     >
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden rounded-t-lg">
         {!imageError ? (
           <img
             src={character.image}
@@ -46,7 +47,6 @@ export function CharacterCard({ character, onClick }: CharacterCardProps) {
             {character.status}
           </Badge>
         </div>
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
       </div>
 
       <CardContent className="p-4">
@@ -65,17 +65,6 @@ export function CharacterCard({ character, onClick }: CharacterCardProps) {
           </p>
         </div>
       </CardContent>
-
-      <style jsx>{`
-        .character-card {
-          transform: translateY(0);
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-        }
-        .character-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-        }
-      `}</style>
     </Card>
   )
 }
