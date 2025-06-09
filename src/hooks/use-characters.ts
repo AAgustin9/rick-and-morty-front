@@ -12,22 +12,18 @@ export function useCharacters(filters: Filters) {
   const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    fetchCharacters(1, true)
+    setCurrentPage(1)
+    fetchCharacters(1)
   }, [filters])
 
-  const fetchCharacters = async (page: number, reset = false) => {
+  const fetchCharacters = async (page: number) => {
     try {
       setLoading(true)
 
       const data = await characterService.getCharacters(page, filters)
 
-      if (reset || page === 1) {
-        setCharacters(data.results)
-        setCurrentPage(1)
-      } else {
-        setCharacters((prev) => [...prev, ...data.results])
-      }
-
+      setCharacters(data.results)
+      setCurrentPage(page)
       setTotalPages(data.info.pages)
     } catch (error) {
       console.error("Error fetching characters:", error)
@@ -38,11 +34,9 @@ export function useCharacters(filters: Filters) {
     }
   }
 
-  const loadMore = () => {
-    if (currentPage < totalPages) {
-      const nextPage = currentPage + 1
-      setCurrentPage(nextPage)
-      fetchCharacters(nextPage, false)
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages && page !== currentPage) {
+      fetchCharacters(page)
     }
   }
 
@@ -51,6 +45,6 @@ export function useCharacters(filters: Filters) {
     loading,
     currentPage,
     totalPages,
-    loadMore,
+    goToPage,
   }
 }

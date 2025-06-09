@@ -19,7 +19,7 @@ export default function RickMortyExplorer() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>("grid")
   const { filters, handleFilterChange, clearFilters } = useFilters()
-  const { characters, loading, currentPage, totalPages, loadMore } = useCharacters(filters)
+  const { characters, loading, currentPage, totalPages, goToPage } = useCharacters(filters)
 
   // Persist view mode preference in localStorage
   useEffect(() => {
@@ -73,8 +73,9 @@ export default function RickMortyExplorer() {
                 <CharacterGrid
                   characters={characters}
                   loading={loading}
-                  hasMore={currentPage < totalPages}
-                  onLoadMore={loadMore}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
                   onCharacterClick={setSelectedCharacter}
                   filters={filters}
                 />
@@ -82,8 +83,9 @@ export default function RickMortyExplorer() {
                 <CharacterList
                   characters={characters}
                   loading={loading}
-                  hasMore={currentPage < totalPages}
-                  onLoadMore={loadMore}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
                   onCharacterClick={setSelectedCharacter}
                   filters={filters}
                 />
