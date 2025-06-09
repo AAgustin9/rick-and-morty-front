@@ -1,11 +1,11 @@
 export function getStatusColor(status: string): string {
   switch (status) {
     case "Alive":
-      return "bg-green-500"
+      return "bg-green-400"
     case "Dead":
-      return "bg-red-500"
+      return "bg-red-400"
     default:
-      return "bg-gray-500"
+      return "bg-gray-400"
   }
 }
 
