@@ -21,10 +21,19 @@ export default function RickMortyExplorer() {
   const { characters, loading, currentPage, totalPages, loadMore } = useCharacters(filters)
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      <SidebarProvider defaultOpen={false}>
-        <AppSidebar filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
-        <SidebarInset>
+    <div 
+      className="min-h-screen bg-cover bg-center bg-fixed bg-no-repeat relative"
+      style={{
+        backgroundImage: "url('/rick-bg.jpg')"
+      }}
+    >
+      {/* Semi-transparent overlay for better readability */}
+      <div className="absolute inset-0 bg-slate-900/70 z-0"></div>
+      
+      <div className="relative z-10">
+        <SidebarProvider defaultOpen={false}>
+          <AppSidebar filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
+          <SidebarInset>
           <div className="flex flex-col min-h-screen">
             <div className="flex items-center gap-4 p-4 border-b border-slate-700 bg-slate-800">
               <TooltipProvider>
@@ -40,7 +49,7 @@ export default function RickMortyExplorer() {
               <Header />
             </div>
 
-            <main className="flex-1 p-4 md:p-6 bg-slate-900">
+            <main className="flex-1 p-4 md:p-6 bg-transparent">
               <CharacterGrid
                 characters={characters}
                 loading={loading}
@@ -60,6 +69,7 @@ export default function RickMortyExplorer() {
           onClose={() => setSelectedCharacter(null)}
         />
       </SidebarProvider>
+      </div>
     </div>
   )
 }
