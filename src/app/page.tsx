@@ -54,7 +54,7 @@ export default function RickMortyExplorer() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400 flex-shrink-0" />
+                      <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400 flex-shrink-0 p-3 w-12 h-12 [&>svg]:size-6" />
                     </TooltipTrigger>
                     <TooltipContent side="bottom" className="bg-slate-800 text-white border-slate-600">
                       <p>Toggle Sidebar (Ctrl/⌘ + B)</p>
