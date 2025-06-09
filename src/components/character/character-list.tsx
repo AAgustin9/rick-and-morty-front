@@ -1,15 +1,16 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { CharacterListItem } from "./character-list-item"
+import { Pagination } from "@/components/ui/pagination"
 import type { Character } from "@/types/character"
 import type { Filters } from "@/types/filters"
 
 interface CharacterListProps {
   characters: Character[]
   loading: boolean
-  hasMore: boolean
-  onLoadMore: () => void
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
   onCharacterClick: (character: Character) => void
   filters: Filters
 }
@@ -17,8 +18,9 @@ interface CharacterListProps {
 export function CharacterList({
   characters,
   loading,
-  hasMore,
-  onLoadMore,
+  currentPage,
+  totalPages,
+  onPageChange,
   onCharacterClick,
   filters,
 }: CharacterListProps) {
@@ -74,29 +76,17 @@ export function CharacterList({
         ))}
       </div>
 
-      {hasMore && (
-        <div className="flex justify-center pt-4">
-          <Button
-            onClick={onLoadMore}
-            disabled={loading}
-            size="lg"
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
-          >
-            {loading ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                Loading...
-              </>
-            ) : (
-              "Load More Characters"
-            )}
-          </Button>
+      <div className="flex flex-col items-center space-y-4 pt-6">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        />
+        
+        <div className="text-center text-gray-500 text-sm">
+          Showing {characters.length} characters on page {currentPage} of {totalPages}
+          {hasActiveFilters && " with current filters"}
         </div>
-      )}
-
-      <div className="text-center text-gray-500 text-sm">
-        Showing {characters.length} characters
-        {hasActiveFilters && " with current filters"}
       </div>
     </div>
   )

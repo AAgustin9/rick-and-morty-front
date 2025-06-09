@@ -19,7 +19,7 @@ export default function RickMortyExplorer() {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null)
   const [viewMode, setViewMode] = useState<ViewMode>("grid")
   const { filters, handleFilterChange, clearFilters } = useFilters()
-  const { characters, loading, currentPage, totalPages, loadMore } = useCharacters(filters)
+  const { characters, loading, currentPage, totalPages, goToPage } = useCharacters(filters)
 
   // Persist view mode preference in localStorage
   useEffect(() => {
@@ -54,14 +54,17 @@ export default function RickMortyExplorer() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400 flex-shrink-0" />
+                      <SidebarTrigger className="text-white hover:bg-slate-700 hover:text-emerald-400 transition-all duration-200 border border-slate-600 hover:border-emerald-400 flex-shrink-0 p-3 w-12 h-12 [&>svg]:size-6" />
                     </TooltipTrigger>
                     <TooltipContent side="bottom" className="bg-slate-800 text-white border-slate-600">
                       <p>Toggle Sidebar (Ctrl/⌘ + B)</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <Header />
+                <Header 
+                  searchTerm={filters.searchTerm}
+                  onSearchChange={(value) => handleFilterChange({ searchTerm: value })}
+                />
               </div>
               <div className="flex-shrink-0">
                 <ViewSwitcher view={viewMode} onViewChange={handleViewChange} />
@@ -73,8 +76,9 @@ export default function RickMortyExplorer() {
                 <CharacterGrid
                   characters={characters}
                   loading={loading}
-                  hasMore={currentPage < totalPages}
-                  onLoadMore={loadMore}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
                   onCharacterClick={setSelectedCharacter}
                   filters={filters}
                 />
@@ -82,8 +86,9 @@ export default function RickMortyExplorer() {
                 <CharacterList
                   characters={characters}
                   loading={loading}
-                  hasMore={currentPage < totalPages}
-                  onLoadMore={loadMore}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={goToPage}
                   onCharacterClick={setSelectedCharacter}
                   filters={filters}
                 />

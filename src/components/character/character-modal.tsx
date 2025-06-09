@@ -1,11 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { MapPin, Calendar, Tv } from "lucide-react"
+import { MapPin, Calendar, Tv, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import { getStatusColor, getStatusBadgeVariant, formatDate } from "@/utils/character"
+import { EpisodesModal } from "./episodes-modal"
 import type { Character } from "@/types/character"
 import "./character-modal.css"
 
@@ -16,6 +19,8 @@ interface CharacterModalProps {
 }
 
 export function CharacterModal({ character, isOpen, onClose }: CharacterModalProps) {
+  const [episodesModalOpen, setEpisodesModalOpen] = useState(false)
+
   if (!character) return null
 
   return (
@@ -93,10 +98,21 @@ export function CharacterModal({ character, isOpen, onClose }: CharacterModalPro
                   <Tv className="h-4 w-4" />
                   Episodes
                 </h3>
-                <div className="text-slate-300">
-                  <p>
-                    Appeared in <span className="font-semibold text-white">{character.episode.length}</span> episodes
-                  </p>
+                <div className="space-y-3">
+                  <div className="text-slate-300">
+                    <p>
+                      Appeared in <span className="font-semibold text-white">{character.episode.length}</span> episodes
+                    </p>
+                  </div>
+                  {character.episode.length > 0 && (
+                    <Button
+                      onClick={() => setEpisodesModalOpen(true)}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-2"
+                      size="sm"
+                    >
+                      View All
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -114,6 +130,13 @@ export function CharacterModal({ character, isOpen, onClose }: CharacterModalPro
             </div>
           </div>
         </div>
+
+        <EpisodesModal
+          episodeUrls={character.episode}
+          characterName={character.name}
+          isOpen={episodesModalOpen}
+          onClose={() => setEpisodesModalOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   )
