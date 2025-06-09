@@ -1,6 +1,6 @@
 "use client"
 
-import { Search, Filter, X, Keyboard } from "lucide-react"
+import { Filter, X, Keyboard } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -71,21 +71,7 @@ export function AppSidebar({ filters, onFilterChange, onClearFilters }: AppSideb
       </SidebarHeader>
 
       <SidebarContent className="p-4 bg-slate-900">
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-300 mb-3">Search</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                type="text"
-                placeholder="Search characters..."
-                value={filters.searchTerm}
-                onChange={(e) => onFilterChange({ searchTerm: e.target.value })}
-                className="pl-10 bg-slate-800 border-slate-600 text-white placeholder-slate-400 focus:border-emerald-400"
-              />
-            </div>
-          </SidebarGroupContent>
-        </SidebarGroup>
+
 
         <SidebarGroup>
           <SidebarGroupLabel className="text-gray-300 mb-3">Status</SidebarGroupLabel>
