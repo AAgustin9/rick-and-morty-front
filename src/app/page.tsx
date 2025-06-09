@@ -35,7 +35,7 @@ export default function RickMortyExplorer() {
           <AppSidebar filters={filters} onFilterChange={handleFilterChange} onClearFilters={clearFilters} />
           <SidebarInset>
           <div className="flex flex-col min-h-screen">
-            <div className="flex items-center gap-4 p-4 border-b border-slate-700 bg-slate-800">
+            <div className="fixed top-0 left-0 right-0 z-50 flex items-center gap-4 p-4 border-b border-slate-700 bg-slate-800">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>

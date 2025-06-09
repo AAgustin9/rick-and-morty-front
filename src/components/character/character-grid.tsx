@@ -26,7 +26,7 @@ export function CharacterGrid({
 
   if (loading && characters.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16">
+      <div className="flex flex-col items-center justify-center py-16 pt-20">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-slate-600 border-t-emerald-400 rounded-full animate-spin"></div>
           <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-r-emerald-300 rounded-full animate-spin animation-delay-150"></div>
@@ -39,7 +39,7 @@ export function CharacterGrid({
 
   if (characters.length === 0 && !loading) {
     return (
-      <div className="flex flex-col items-center justify-center py-16">
+      <div className="flex flex-col items-center justify-center py-16 pt-20">
         <div className="text-center">
           <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-slate-800 flex items-center justify-center">
             <svg className="w-12 h-12 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@ export function CharacterGrid({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pt-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
         {characters.map((character) => (
           <CharacterCard key={character.id} character={character} onClick={() => onCharacterClick(character)} />

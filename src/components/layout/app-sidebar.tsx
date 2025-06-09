@@ -29,7 +29,7 @@ export function AppSidebar({ filters, onFilterChange, onClearFilters }: AppSideb
   const { toggleSidebar, isMobile } = useSidebar()
 
   return (
-    <Sidebar className="border-r border-gray-800 bg-slate-900">
+    <Sidebar className="border-r border-gray-800 bg-slate-900 z-[60]">
       <SidebarHeader className="p-4 border-b border-gray-800 bg-slate-800">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
