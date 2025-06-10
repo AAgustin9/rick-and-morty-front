@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { Filters } from "@/app/page"
+import type { Filters } from "@/types/filters"
 
 interface AppSidebarProps {
   filters: Filters

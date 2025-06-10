@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react"
+import Image from "next/image"
 import { getStatusColor, getStatusBadgeVariant } from "@/utils/character"
 import type { Character } from "@/types/character"
 import "./character-list-item.css"
@@ -25,9 +26,11 @@ export function CharacterListItem({ character, onClick }: CharacterListItemProps
           {/* Image Section */}
           <div className="relative flex-shrink-0 w-full sm:w-32 md:w-40 lg:w-48">
             {!imageError ? (
-              <img
+              <Image
                 src={character.image}
                 alt={character.name}
+                width={800}
+                height={600}
                 className="w-full h-32 sm:h-full sm:min-h-32 object-cover transition-transform duration-300 group-hover:scale-105 rounded-l-lg"
                 onError={() => setImageError(true)}
                 loading="lazy"
