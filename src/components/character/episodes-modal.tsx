@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -19,13 +19,7 @@ export function EpisodesModal({ episodeUrls, characterName, isOpen, onClose }: E
   const [episodes, setEpisodes] = useState<Episode[]>([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (isOpen && episodeUrls.length > 0) {
-      fetchEpisodes()
-    }
-  }, [isOpen, episodeUrls])
-
-  const fetchEpisodes = async () => {
+  const fetchEpisodes = useCallback(async () => {
     setLoading(true)
     try {
       const episodeData = await episodeService.getEpisodesByUrls(episodeUrls)
@@ -56,7 +50,13 @@ export function EpisodesModal({ episodeUrls, characterName, isOpen, onClose }: E
     } finally {
       setLoading(false)
     }
-  }
+  }, [episodeUrls])
+
+  useEffect(() => {
+    if (isOpen && episodeUrls.length > 0) {
+      fetchEpisodes()
+    }
+  }, [isOpen, episodeUrls, fetchEpisodes])
 
   const formatAirDate = (airDate: string) => {
     const date = new Date(airDate)
