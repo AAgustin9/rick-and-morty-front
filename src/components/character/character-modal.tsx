@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { MapPin, Calendar, Tv, ExternalLink } from "lucide-react"
+import { MapPin, Calendar, Tv } from "lucide-react"
 import Image from "next/image"
 import { getStatusColor, getStatusBadgeVariant, formatDate } from "@/utils/character"
 import { EpisodesModal } from "./episodes-modal"
