@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { CharacterCard } from "@/components/character-card"
-import type { Character, Filters } from "@/app/page"
+import type { Character } from "@/types/character"
+import type { Filters } from "@/types/filters"
 
 interface CharacterGridProps {
   characters: Character[]

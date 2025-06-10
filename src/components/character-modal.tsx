@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { MapPin, Calendar, Tv } from "lucide-react"
 import Image from "next/image"
-import type { Character } from "@/app/page"
+import type { Character } from "@/types/character"
 
 interface CharacterModalProps {
   character: Character | null
