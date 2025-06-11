@@ -61,10 +61,7 @@ export default function RickMortyExplorer() {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <Header 
-                  searchTerm={filters.searchTerm}
-                  onSearchChange={(value) => handleFilterChange({ searchTerm: value })}
-                />
+                <Header />
               </div>
               <div className="flex-shrink-0">
                 <ViewSwitcher view={viewMode} onViewChange={handleViewChange} />
